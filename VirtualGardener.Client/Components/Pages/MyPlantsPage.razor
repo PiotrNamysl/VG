@@ -1,0 +1,31 @@
+@page "/MyPlants"
+
+@inherits BaseAuthorizedPage
+@rendermode InteractiveServer
+
+
+    <div class="body">
+        <NavBar UserAuthState="@UserAuthState"></NavBar>
+
+        <div class="content">
+            @if (IsAuthorized)
+            {
+                <PlantCreator @ref="_plantCreator"
+                              UserAuthState="UserAuthState"
+                              RefreshPlants="RefreshPlants"/>
+                <div class="list">
+                    <PlantsList PlantsSource="_myPlants"
+                                UserAuthState="UserAuthState"/>
+                </div>
+                <button class="new-plant-button" @onclick="async () => await _plantCreator.ShowPopupAsync()">New
+                    Plant
+                </button>
+            }
+            else
+            {
+                <h2>Log in to access and care for your plants</h2>
+                <LogInPageRedirector/>
+            }
+        </div>
+    </div>
+

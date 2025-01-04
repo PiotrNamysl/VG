@@ -1,0 +1,36 @@
+@rendermode InteractiveServer
+
+@if (PlantsSource.Count == 0)
+{
+    <p class="text">No plants to display. Add your first plant!</p>
+}
+else
+{
+    <div class="plants-grid">
+        <div class="grid-header">
+            <span>Name</span>
+            <span>Type</span>
+            <span>Planting Date</span>
+            <span>Location</span>
+            <span>Height</span>
+            <span>Indoor</span>
+            <span>Actions</span>
+        </div>
+        @foreach (var plant in PlantsSource)
+        {
+            <div class="grid-row">
+                <span>@plant.Name</span>
+                <span>@plant.Type</span>
+                <span>@plant.PlantingDate.ToShortDateString()</span>
+                <span>@plant.Location</span>
+                <span>@plant.Height cm</span>
+                <span>@(plant.IsIndoor ? "Yes" : "No")</span>
+                <span class="actions">
+                    <button class="action-btn" @onclick="()=>GoToDetails(plant)">Details</button>
+                    <button class="action-btn red-button"
+                            @onclick="async ()=> await DeletePlantAsync(plant)">Delete</button>
+                </span>
+            </div>
+        }
+    </div>
+}

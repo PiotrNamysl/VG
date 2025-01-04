@@ -1,0 +1,25 @@
+@rendermode InteractiveServer
+
+<div class="nav-bar">
+    <div class="hrefs">
+        <a href="/">Home Page</a>
+        <a href="/MyPlants">My Plants</a>
+    </div>
+    <div class="account-tab" @onclick="ChangeAccountDetailsVisibility">@(UserAuthState?.Name?[0] ?? 'X')</div>
+
+    @if (_isAccountDetailsVisible)
+    {
+        if (UserAuthState is not null)
+        {
+            <div class="account-details">
+                <p>Username: @UserAuthState.Name</p>
+                <p>Email: @UserAuthState.Email</p>
+                <button @onclick="SignOutAsync">Sign out</button>
+            </div>
+        }
+        else
+        {
+            NavigationManager.NavigateTo("logIn");
+        }
+    }
+</div>

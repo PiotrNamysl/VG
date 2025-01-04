@@ -1,0 +1,101 @@
+@page "/PlantDetails/{PlantId}"
+
+@rendermode InteractiveServer
+@using VirtualGardener.Shared.Models.Enums
+@inherits BaseAuthorizedPage
+
+@if (IsAuthorized)
+{
+    if (_plant is not null)
+    {
+        <div class="body">
+            <div class="plant-details-container">
+                <h1 class="page-title app-color">Plant Details</h1>
+
+                <div class="content-wrapper">
+                    <div class="login-register-container plant-info">
+                        <h2 class="section-title">Plant Information</h2>
+                        <p><strong>Name:</strong> @_plant.Name</p>
+                        <p><strong>Type:</strong> @_plant.Type</p>
+                        <p><strong>Planting Date:</strong> @_plant.PlantingDate.ToString("yyyy-MM-dd")</p>
+                        <p><strong>Watering Frequency:</strong> @_plant.WateringFrequency</p>
+                        <p><strong>Location:</strong> @_plant.Location</p>
+                        <p><strong>Height:</strong> @_plant.Height cm</p>
+                        <p><strong>Notes:</strong> @_plant.Notes</p>
+                        <p><strong>Is Indoor:</strong> @(_plant.IsIndoor ? "Yes" : "No")</p>
+                        <p><strong>Last Watering:</strong> @(_plant.LastWatering?.ToString("yyyy-MM-dd") ?? "N/A")
+                            @if (_isWateringRequired)
+                            {
+                                <span style="color: red"> !!!</span>
+                            }
+                        </p>
+                        <p><strong>Last Pest
+                                Control:</strong> @(_plant.LastPestControl?.ToString("yyyy-MM-dd") ?? "N/A")
+                            @if (_isFertilizingRequired)
+                            {
+                                <span style="color: red"> !!!</span>
+                            }
+                        </p>
+                        <p><strong>Last Measuring:</strong> @(_plant.LastMeasuring?.ToString("yyyy-MM-dd") ?? "N/A")</p>
+                        <p><strong>Last Pruning:</strong> @(_plant.LastPruning?.ToString("yyyy-MM-dd") ?? "N/A")</p>
+                        <p><strong>Last Repotting:</strong> @(_plant.LastRepotting?.ToString("yyyy-MM-dd") ?? "N/A")</p>
+                    </div>
+
+                    <div class="tasks-section">
+                        <div class="login-register-container tasks-list">
+                            <h2 class="section-title">Care Tasks</h2>
+                            @if (_plant.CareTasks is not null && _plant.CareTasks.Any())
+                            {
+                                <ul class="task-list">
+                                    @foreach (var task in _plant.CareTasks)
+                                    {
+                                        <li class="task-item">
+                                            <strong>Task:</strong> @task.ActionType <br/>
+                                            <strong>Date:</strong> @task.TaskDate.ToString("yyyy-MM-dd") <br/>
+                                            <strong>Notes:</strong> @task.Notes
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>No tasks found.</p>
+                            }
+                        </div>
+
+                        <div class="login-register-container task-form">
+                            <h3 class="section-title">Add New Care Task</h3>
+                            <form>
+                                <div class="form-group">
+                                    <label>Task Type:</label>
+                                    <select class="form-control" @bind="_careTaskToAdd.ActionType">
+                                        @foreach (var type in Enum.GetValues(typeof(CareTaskType)))
+                                        {
+                                            <option>@type</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Notes:</label>
+                                    <textarea placeholder="Additional notes" @bind="_careTaskToAdd.Notes"></textarea>
+                                </div>
+                                <button type="submit" class="btn" @onclick="() => AddCareTask()">Add Task</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button class="red-button" @onclick="@(() => NavigationManager.NavigateTo("/MyPlants"))">Go back to all
+                    plants
+                </button>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="body" style="flex-direction: column">
+        <h2>Go to Log In Page</h2>
+        <LogInPageRedirector/>
+    </div>
+}

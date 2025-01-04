@@ -1,0 +1,29 @@
+@page "/logIn"
+@rendermode InteractiveServer
+
+<div class="body">
+    <div class="login-register-container">
+        <h1>Virtual Gardener</h1>
+        <p>
+            Please log in to continue.
+        </p>
+
+        <label for="username">Email</label>
+        <input type="email" @bind="_email">
+
+        <label for="password">Password</label>
+        <input type="password" @bind="_password">
+
+        <button type="submit" @onclick="LoginAsync">Log In</button>
+        <br>
+        <br>
+        <div hidden="@(!_isBusy)"  class="spinner-border" role="status"></div>
+        
+        @if (!string.IsNullOrWhiteSpace(_errorMessage))
+        {
+            <p class="error-message">@_errorMessage</p>
+        }
+
+        <p>Don't have an account? <a href="/signup">Sign up</a></p>
+    </div>
+</div>

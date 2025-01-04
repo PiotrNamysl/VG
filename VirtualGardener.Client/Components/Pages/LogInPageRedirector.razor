@@ -1,0 +1,8 @@
+@rendermode InteractiveServer
+
+
+<button @onclick="@(()=>NavigationManager.NavigateTo("logIn"))">Log In</button>
+
+@code {
+    [Inject] NavigationManager NavigationManager { get; set; }
+}

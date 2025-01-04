@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:15
+    hostname: db
+    container_name: virtual_gardener_db
+    restart: always
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_DB: virtual_gardener
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - virtual-gardener
+
+  app:
+    build:
+      context: .
+      dockerfile: ./VirtualGardener.Server/Dockerfile
+    hostname: backend
+    container_name: virtual_gardener_app
+    ports:
+      - "7288:8080"
+    depends_on:
+      - db
+    networks:
+      - virtual-gardener
+
+  client:
+    build:
+      context: .
+      dockerfile: ./VirtualGardener.Client/Dockerfile
+    container_name: virtual_gardener_client
+    ports:
+      - "3000:8080"
+    networks:
+      - virtual-gardener
+    volumes:
+      - ./keys:/keys
+
+volumes:
+  db_data:
+
+networks:
+  virtual-gardener:
+    name: virtual-gardener
+    driver: bridge

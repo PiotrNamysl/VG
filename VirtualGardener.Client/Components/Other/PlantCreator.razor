@@ -1,0 +1,55 @@
+@using VirtualGardener.Shared.Models.Enums
+@rendermode InteractiveServer
+
+@if (_isPopupVisible)
+{
+    <div class="popup-overlay">
+        <div class="popup">
+            <div class="popup-header">
+                <h2>Add Plant</h2>
+            </div>
+            <div class="popup-body">
+                <div class="error-message">@_errorMessage</div>
+
+                <label for="plantName">Plant Name:</label>
+                <input id="plantName" type="text" @bind="_plant.Name" placeholder="Enter plant name"/>
+
+                <label for="plantType">Plant Type:</label>
+                <select id="plantType" @bind="_plant.Type">
+                    @foreach (var type in Enum.GetValues<PlantType>())
+                    {
+                        <option value="@type">@type</option>
+                    }
+                </select>
+
+                <label for="wateringFrequency">Watering Frequency:</label>
+                <select id="wateringFrequency" @bind="_plant.WateringFrequency">
+                    @foreach (var frequency in Enum.GetValues<Frequency>())
+                    {
+                        <option value="@frequency">@frequency</option>
+                    }
+                </select>
+
+                <label for="plantLocation">Location:</label>
+                <input id="plantLocation" type="text"
+                       @bind="_plant.Location"
+                       placeholder="Enter location"/>
+
+                <label for="plantNotes">Notes:</label>
+                <textarea id="plantNotes"
+                      @bind="_plant.Notes"
+                      placeholder="Enter plant notes"></textarea>
+
+                <label for="isIndoor">Is Indoor:</label>
+
+                <input id="isIndoor"
+                       type="checkbox"
+                       @bind="_plant.IsIndoor"/>
+            </div>
+            <div class="popup-footer">
+                <button @onclick="AddPlantAsync">Save</button>
+                <button @onclick="ClosePopup" class="secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+}

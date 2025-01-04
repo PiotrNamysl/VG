@@ -1,0 +1,92 @@
+.body {
+    font-family: Arial, sans-serif;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100dvw;
+    margin: 0;
+}
+
+.login-register-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+
+    h1 {
+        font-size: 24px;
+        color: #388e3c;
+    }
+
+    .text {
+        font-size: 14px;
+        color: #388e3c;
+        margin-bottom: 20px;
+    }
+
+    .error-message {
+        margin: 20px;
+        color: red;
+    }
+
+    label {
+        font-size: 14px;
+        color: #388e3c;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #388e3c;
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #388e3c;
+    }
+
+    input:focus {
+        border-color: #66bb6a;
+        outline: none;
+    }
+
+    a {
+        color: #388e3c;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+button {
+    background-color: #388e3c;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #66bb6a;
+}
+
+.app-color {
+    color: #388e3c;
+}
+
+.red-button {
+    background-color: #c6291f !important;
+}
+
+.red-button:hover {
+    background-color: #671410 !important;
+}
