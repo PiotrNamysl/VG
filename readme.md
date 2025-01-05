@@ -25,8 +25,8 @@ Projekt składa się z trzech głównych części:
 
 - Upewnij się, że masz zainstalowanego dockera
 - Przejdź do katalogu głównego projektu
-- Uruchom skrypt "START_SCRIPT.sh", skrypt ten uruchamia zarówno bazę danych, migrację bazy, backend oraz frontend
-- Aplikacja jest gotowa do działania
+- Uruchom skrypt "START_SCRIPT.sh", za pomocą tego skryptu uruchomisz zarówno bazę danych, migrację bazy, backend oraz frontend (opcja nr 1 w skrypcie).
+- Aplikacja jest gotowa do działania (frontend powinien działać pod adresem http://localhost:3000, dla pewności prosimy sprawdzić w dockerze)
 
 ---
 
